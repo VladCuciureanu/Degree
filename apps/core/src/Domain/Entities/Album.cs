@@ -2,7 +2,7 @@
 
 public class Album : BaseAuditableEntity
 {
-    public string Title { get; set; }
+    public string Title { get; set; } = default!;
 
     public AlbumType Type { get; set; }
 
