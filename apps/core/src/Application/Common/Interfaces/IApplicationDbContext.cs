@@ -5,9 +5,11 @@ namespace AudioStreaming.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
-    DbSet<TodoList> TodoLists { get; }
+    DbSet<Artist> Artists { get; }
 
-    DbSet<TodoItem> TodoItems { get; }
+    DbSet<Album> Albums { get; }
+
+    DbSet<Track> Tracks { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

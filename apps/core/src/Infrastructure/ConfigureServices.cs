@@ -1,5 +1,4 @@
 ﻿using AudioStreaming.Application.Common.Interfaces;
-using AudioStreaming.Infrastructure.Files;
 using AudioStreaming.Infrastructure.Identity;
 using AudioStreaming.Infrastructure.Persistence;
 using AudioStreaming.Infrastructure.Persistence.Interceptors;
@@ -43,7 +42,6 @@ public static class ConfigureServices
 
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
-        services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
         services.AddAuthentication()
             .AddIdentityServerJwt();

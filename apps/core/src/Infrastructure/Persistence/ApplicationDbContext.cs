@@ -20,16 +20,18 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
         DbContextOptions<ApplicationDbContext> options,
         IOptions<OperationalStoreOptions> operationalStoreOptions,
         IMediator mediator,
-        AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor) 
+        AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor)
         : base(options, operationalStoreOptions)
     {
         _mediator = mediator;
         _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
     }
 
-    public DbSet<TodoList> TodoLists => Set<TodoList>();
+    public DbSet<Artist> Artists => Set<Artist>();
 
-    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    public DbSet<Album> Albums => Set<Album>();
+
+    public DbSet<Track> Tracks => Set<Track>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
