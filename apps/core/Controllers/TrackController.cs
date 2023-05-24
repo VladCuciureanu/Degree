@@ -3,7 +3,7 @@ using AudioStreaming.Services.TrackService;
 
 namespace AudioStreaming.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/track")]
   [ApiController]
   public class TrackController : ControllerBase
   {
