@@ -73,6 +73,12 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
+// Seed
+using (var scope = app.Services.CreateScope())
+{
+  scope.ServiceProvider.GetRequiredService<DataContext>().Database.EnsureCreated();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

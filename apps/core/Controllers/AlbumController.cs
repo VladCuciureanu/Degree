@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AudioStreaming.Controllers
 {
-  [Route("api/album")]
+  [Route("api/albums")]
   [ApiController]
   public class AlbumController : ControllerBase
   {

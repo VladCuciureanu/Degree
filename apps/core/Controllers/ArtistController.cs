@@ -3,7 +3,7 @@ using AudioStreaming.Services.ArtistService;
 
 namespace AudioStreaming.Controllers
 {
-  [Route("api/artist")]
+  [Route("api/artists")]
   [ApiController]
   public class ArtistController : ControllerBase
   {
