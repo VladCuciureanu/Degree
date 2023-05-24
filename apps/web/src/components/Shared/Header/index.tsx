@@ -14,9 +14,6 @@ export default function Sidebar() {
         <Link className={styles.Link} href="/artists">
           Artists
         </Link>
-        <Link className={styles.Link} href="/songs">
-          Songs
-        </Link>
       </nav>
       <p>s</p>
     </header>
