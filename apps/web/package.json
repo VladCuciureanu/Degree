@@ -1,0 +1,33 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "author": {
+    "name": "Vlad Cuciureanu",
+    "email": "vlad.cuciureanu@pm.me",
+    "url": "https://vladcuciureanu.com"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write \"./src/**/*.{ts,tsx,md}\" --no-error-on-unmatched-pattern"
+  },
+  "dependencies": {
+    "next": "13.4.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.1.2",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "encoding": "^0.1.13",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.1",
+    "prettier": "^2.8.8",
+    "sass": "^1.62.1",
+    "typescript": "5.0.4"
+  }
+}

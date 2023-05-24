@@ -1,0 +1,9 @@
+@import "reset.scss";
+@import "variables.scss";
+@import "themes.scss";
+
+body {
+  color: var(--text-base);
+  background-color: var(--background-grid);
+  font-family: "Inter", sans-serif;
+}

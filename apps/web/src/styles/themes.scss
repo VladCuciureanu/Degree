@@ -1,0 +1,68 @@
+@import "colors.scss";
+
+// Light theme
+:root {
+  @include light-colors;
+  --background-base: rgb(237, 237, 237);
+  --background-highlight: rgb(229, 229, 229);
+  --background-press: rgb(255, 255, 255);
+  --background-elevated-base: rgb(219, 219, 219);
+  --background-elevated-highlight: rgb(213, 213, 213);
+  --background-elevated-press: rgb(255, 255, 255);
+  --background-tinted-base: rgba(0, 0, 0, 0.07);
+  --background-tinted-highlight: rgba(0, 0, 0, 0.1);
+  --background-tinted-press: rgba(0, 0, 0, 0.04);
+  --background-unsafe-for-small-text-base: rgb(237, 237, 237);
+  --background-unsafe-for-small-text-highlight: rgb(237, 237, 237);
+  --background-unsafe-for-small-text-press: rgb(237, 237, 237);
+  --text-base: rgb(0, 0, 0);
+  --text-subdued: rgb(87, 87, 87);
+  --text-bright-accent: rgb(30, 215, 96);
+  --text-negative: rgb(241, 94, 108);
+  --text-warning: rgb(255, 164, 43);
+  --text-positive: rgb(30, 215, 96);
+  --text-announcement: rgb(61, 145, 244);
+  --essential-base: rgb(0, 0, 0);
+  --essential-subdued: rgb(141, 141, 141);
+  --essential-bright-accent: rgb(30, 215, 96);
+  --essential-negative: rgb(233, 20, 41);
+  --essential-warning: rgb(255, 164, 43);
+  --essential-positive: rgb(30, 215, 96);
+  --essential-announcement: rgb(13, 114, 234);
+  --decorative-base: rgb(0, 0, 0);
+  --decorative-subdued: rgb(214, 214, 214);
+}
+
+// Dark theme
+[data-theme="dark"] {
+  @include dark-colors;
+  --background-base: rgb(18, 18, 18);
+  --background-highlight: rgb(26, 26, 26);
+  --background-press: rgb(0, 0, 0);
+  --background-elevated-base: rgb(36, 36, 36);
+  --background-elevated-highlight: rgb(42, 42, 42);
+  --background-elevated-press: rgb(0, 0, 0);
+  --background-tinted-base: rgba(255, 255, 255, 0.07);
+  --background-tinted-highlight: rgba(255, 255, 255, 0.1);
+  --background-tinted-press: rgba(255, 255, 255, 0.04);
+  --background-unsafe-for-small-text-base: rgb(18, 18, 18);
+  --background-unsafe-for-small-text-highlight: rgb(18, 18, 18);
+  --background-unsafe-for-small-text-press: rgb(18, 18, 18);
+  --text-base: rgb(255, 255, 255);
+  --text-subdued: rgb(167, 167, 167);
+  --text-bright-accent: rgb(30, 215, 96);
+  --text-negative: rgb(241, 94, 108);
+  --text-warning: rgb(255, 164, 43);
+  --text-positive: rgb(30, 215, 96);
+  --text-announcement: rgb(61, 145, 244);
+  --essential-base: rgb(255, 255, 255);
+  --essential-subdued: rgb(114, 114, 114);
+  --essential-bright-accent: rgb(30, 215, 96);
+  --essential-negative: rgb(233, 20, 41);
+  --essential-warning: rgb(255, 164, 43);
+  --essential-positive: rgb(30, 215, 96);
+  --essential-announcement: rgb(13, 114, 234);
+  --decorative-base: rgb(255, 255, 255);
+  --decorative-subdued: rgb(41, 41, 41);
+  color-scheme: dark;
+}
