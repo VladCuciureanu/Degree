@@ -9,11 +9,9 @@ public class ArtistConfiguration : IEntityTypeConfiguration<Artist>
     public void Configure(EntityTypeBuilder<Artist> builder)
     {
         builder.Property(t => t.Name)
-            .HasMaxLength(200)
+            .HasMaxLength(128)
             .IsRequired();
 
-        builder.HasMany(t => t.Albums);
-
-        builder.HasMany(t => t.Tracks);
+        builder.HasMany(a => a.Tracks).WithMany(t => t.Artists);
     }
 }

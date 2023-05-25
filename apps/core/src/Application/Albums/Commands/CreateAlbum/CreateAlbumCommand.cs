@@ -7,9 +7,11 @@ namespace AudioStreaming.Application.Albums.Commands.CreateAlbum;
 
 public record CreateAlbumCommand : IRequest<int>
 {
-    public int ArtistId { get; init; }
+    public string Name { get; init; } = default!;
 
-    public string Title { get; init; } = default!;
+    public string? ImageUrl { get; init; } = null!;
+
+    public int ArtistId { get; init; } = default!;
 }
 
 public class CreateAlbumCommandHandler : IRequestHandler<CreateAlbumCommand, int>
@@ -25,8 +27,9 @@ public class CreateAlbumCommandHandler : IRequestHandler<CreateAlbumCommand, int
     {
         var entity = new Album
         {
-            Title = request.Title,
-            ArtistId = request.ArtistId,
+            Name = request.Name,
+            ImageUrl = request.ImageUrl,
+            ArtistId = request.ArtistId
         };
 
         entity.AddDomainEvent(new AlbumCreatedEvent(entity));

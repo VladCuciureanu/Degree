@@ -5,7 +5,9 @@ namespace AudioStreaming.Application.Tracks.Queries.GetTracksWithPagination;
 
 public class TrackDto : IMapFrom<Track>
 {
-    public int Id { get; set; }
+    public int Id { get; set; } = default!;
 
-    public string? Title { get; set; }
+    public string Name { get; set; } = default!;
+
+    public int AlbumId { get; set; } = default!;
 }

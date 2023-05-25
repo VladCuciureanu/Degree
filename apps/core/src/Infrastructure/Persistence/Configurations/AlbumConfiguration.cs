@@ -8,15 +8,15 @@ public class AlbumConfiguration : IEntityTypeConfiguration<Album>
 {
     public void Configure(EntityTypeBuilder<Album> builder)
     {
-        builder.Property(t => t.Title)
-            .HasMaxLength(200)
+        builder.Property(a => a.Name)
+            .HasMaxLength(128)
             .IsRequired();
 
-        builder.Property(t => t.Type)
-        .IsRequired();
+        builder.Property(a => a.Type)
+            .IsRequired();
 
-        builder.HasOne(t => t.Artist);
-
-        builder.HasMany(t => t.Tracks);
+        builder.HasOne(a => a.Artist)
+            .WithMany(a => a.Albums)
+            .HasForeignKey(a => a.ArtistId);
     }
 }

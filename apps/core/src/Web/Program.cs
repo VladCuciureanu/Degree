@@ -6,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
-
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -35,13 +34,12 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseAuthentication();
-app.UseIdentityServer();
 app.UseAuthorization();
 
 // app.MapControllers();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller}/{action=Index}/{id?}"
+    pattern: "{controller}/{id?}"
 );
 
 app.Run();

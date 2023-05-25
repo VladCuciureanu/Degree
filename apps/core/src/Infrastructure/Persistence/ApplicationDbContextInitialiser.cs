@@ -72,23 +72,100 @@ public class ApplicationDbContextInitialiser
             }
         }
 
-        // Default data
-        // Seed, if necessary
-        // if (!_context.Albums.Any())
-        // {
-        //     _context.Albums.Add(new Album
-        //     {
-        //         Title = "New Album",
-        //         Tracks =
-        //         {
-        //             new Track { Title = "Fee" },
-        //             new Track { Title = "Fi" },
-        //             new Track { Title = "Fo"},
-        //             new Track { Title = "Fum" },
-        //         }
-        //     });
+        if (!_context.Artists.Any())
+        {
+            _context.Artists.AddRange(
+                new Artist
+                {
+                    Name = "Fake Artist 1"
+                },
+                new Artist
+                {
+                    Name = "Fake Artist 2"
+                },
+                new Artist
+                {
+                    Name = "Fake Artist 3"
+                }
+            );
 
-        //     await _context.SaveChangesAsync();
-        // }
+            await _context.SaveChangesAsync();
+        }
+
+        if (!_context.Albums.Any())
+        {
+            _context.Albums.AddRange(
+                new Album
+                {
+                    Name = "Fake Album 1",
+                    ArtistId = 1
+                },
+                new Album
+                {
+                    Name = "Fake Album 2",
+                    ArtistId = 2
+                },
+                new Album
+                {
+                    Name = "Fake Album 3",
+                    ArtistId = 3
+                }
+            );
+
+            await _context.SaveChangesAsync();
+        }
+
+        if (!_context.Tracks.Any())
+        {
+            _context.Tracks.AddRange(
+                new Track
+                {
+                    Name = "Fake Track 1",
+                    AlbumId = 1
+                },
+                new Track
+                {
+                    Name = "Fake Track 2",
+                    AlbumId = 1
+                },
+                new Track
+                {
+                    Name = "Fake Track 3",
+                    AlbumId = 1
+                },
+                new Track
+                {
+                    Name = "Fake Track 4",
+                    AlbumId = 2
+                },
+                new Track
+                {
+                    Name = "Fake Track 5",
+                    AlbumId = 2
+                },
+                new Track
+                {
+                    Name = "Fake Track 6",
+                    AlbumId = 2
+                },
+                new Track
+                {
+                    Name = "Fake Track 7",
+                    AlbumId = 3
+                },
+                new Track
+                {
+                    Name = "Fake Track 8",
+                    AlbumId = 3
+                },
+                new Track
+                {
+                    Name = "Fake Track 9",
+                    AlbumId = 3
+                }
+            );
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

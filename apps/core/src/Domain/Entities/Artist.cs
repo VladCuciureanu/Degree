@@ -4,9 +4,9 @@ public class Artist : BaseAuditableEntity
 {
     public string Name { get; set; } = default!;
 
-    public string? ImageUrl { get; set; }
+    public string? ImageUrl { get; set; } = null!;
 
-    public IList<Album> Albums { get; private set; } = new List<Album>();
+    public List<Album> Albums { get; private set; } = new();
 
-    public IList<Track> Tracks { get; private set; } = new List<Track>();
+    public List<Track> Tracks { get; private set; } = new();
 }

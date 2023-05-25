@@ -9,7 +9,9 @@ public record UpdateTrackCommand : IRequest
 {
     public int Id { get; init; }
 
-    public string? Title { get; init; }
+    public string? Name { get; init; }
+
+    public int? AlbumId { get; init; }
 }
 
 public class UpdateTrackCommandHandler : IRequestHandler<UpdateTrackCommand>
@@ -31,10 +33,9 @@ public class UpdateTrackCommandHandler : IRequestHandler<UpdateTrackCommand>
             throw new NotFoundException(nameof(Track), request.Id);
         }
 
-        if (request.Title != null)
-        {
-            entity.Title = request.Title;
-        }
+        entity.Name = request.Name != null ? request.Name : entity.Name;
+
+        entity.AlbumId = request.AlbumId != null ? (int)request.AlbumId : entity.AlbumId;
 
         await _context.SaveChangesAsync(cancellationToken);
 

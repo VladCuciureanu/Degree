@@ -5,7 +5,9 @@ namespace AudioStreaming.Application.Albums.Queries.GetAlbumsWithPagination;
 
 public class AlbumDto : IMapFrom<Album>
 {
-    public int Id { get; set; }
+    public int Id { get; set; } = default!;
 
-    public string? Title { get; set; }
+    public string Name { get; set; } = default!;
+
+    public string? ImageUrl { get; set; } = null!;
 }

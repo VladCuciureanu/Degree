@@ -8,12 +8,10 @@ public class TrackConfiguration : IEntityTypeConfiguration<Track>
 {
     public void Configure(EntityTypeBuilder<Track> builder)
     {
-        builder.Property(t => t.Title)
-            .HasMaxLength(200)
+        builder.Property(t => t.Name)
+            .HasMaxLength(128)
             .IsRequired();
 
-        builder.HasOne(t => t.Album);
-
-        builder.HasMany(t => t.Artists);
+        builder.HasOne(t => t.Album).WithMany(a => a.Tracks).HasForeignKey(t => t.AlbumId);
     }
 }

@@ -5,7 +5,9 @@ namespace AudioStreaming.Application.Artists.Queries.GetArtistsWithPagination;
 
 public class ArtistDto : IMapFrom<Artist>
 {
-    public int Id { get; set; }
+    public int Id { get; set; } = default!;
 
-    public string? Name { get; set; }
+    public string Name { get; set; } = default!;
+
+    public string? ImageUrl { get; set; } = null!;
 }

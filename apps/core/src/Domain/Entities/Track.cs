@@ -2,10 +2,10 @@
 
 public class Track : BaseAuditableEntity
 {
-    public string Title { get; set; } = default!;
+    public string Name { get; set; } = default!;
 
-    public int AlbumId { get; set; }
+    public int AlbumId { get; set; } = default!;
     public Album Album { get; set; } = null!;
 
-    public IList<Artist> Artists { get; private set; } = new List<Artist>();
+    public List<Artist> Artists { get; private set; } = new();
 }

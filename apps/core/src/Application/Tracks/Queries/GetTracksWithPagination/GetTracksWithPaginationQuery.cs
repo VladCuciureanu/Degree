@@ -27,7 +27,7 @@ public class GetTracksWithPaginationQueryHandler : IRequestHandler<GetTracksWith
     public async Task<PaginatedList<TrackDto>> Handle(GetTracksWithPaginationQuery request, CancellationToken cancellationToken)
     {
         return await _context.Tracks
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Name)
             .ProjectTo<TrackDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageNumber, request.PageSize);
     }

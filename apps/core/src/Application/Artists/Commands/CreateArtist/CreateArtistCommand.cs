@@ -8,6 +8,8 @@ namespace AudioStreaming.Application.Artists.Commands.CreateArtist;
 public record CreateArtistCommand : IRequest<int>
 {
     public string Name { get; init; } = default!;
+
+    public string? ImageUrl { get; init; } = null!;
 }
 
 public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, int>
@@ -24,6 +26,7 @@ public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, i
         var entity = new Artist
         {
             Name = request.Name,
+            ImageUrl = request.ImageUrl
         };
 
         entity.AddDomainEvent(new ArtistCreatedEvent(entity));

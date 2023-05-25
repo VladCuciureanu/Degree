@@ -27,7 +27,7 @@ public class GetAlbumsWithPaginationQueryHandler : IRequestHandler<GetAlbumsWith
     public async Task<PaginatedList<AlbumDto>> Handle(GetAlbumsWithPaginationQuery request, CancellationToken cancellationToken)
     {
         return await _context.Albums
-            .OrderBy(x => x.Title)
+            .OrderBy(x => x.Name)
             .ProjectTo<AlbumDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageNumber, request.PageSize);
     }

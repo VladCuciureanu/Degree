@@ -7,7 +7,9 @@ namespace AudioStreaming.Application.Tracks.Commands.CreateTrack;
 
 public record CreateTrackCommand : IRequest<int>
 {
-    public string Title { get; init; } = default!;
+    public string Name { get; init; } = default!;
+
+    public int AlbumId { get; init; } = default!;
 }
 
 public class CreateTrackCommandHandler : IRequestHandler<CreateTrackCommand, int>
@@ -23,7 +25,8 @@ public class CreateTrackCommandHandler : IRequestHandler<CreateTrackCommand, int
     {
         var entity = new Track
         {
-            Title = request.Title,
+            Name = request.Name,
+            AlbumId = request.AlbumId
         };
 
         entity.AddDomainEvent(new TrackCreatedEvent(entity));

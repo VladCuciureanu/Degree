@@ -6,7 +6,7 @@ public class UpdateTrackCommandValidator : AbstractValidator<UpdateTrackCommand>
 {
     public UpdateTrackCommandValidator()
     {
-        RuleFor(v => v.Title)
-    .MaximumLength(128).WithMessage("Title must not exceed 128 characters.");
+        RuleFor(v => v.Name)
+    .MaximumLength(128).WithMessage("Name must not exceed 128 characters.");
     }
 }

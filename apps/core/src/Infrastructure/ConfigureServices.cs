@@ -1,12 +1,14 @@
-﻿using AudioStreaming.Application.Common.Interfaces;
+﻿using System.Text;
+using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Infrastructure.Identity;
 using AudioStreaming.Infrastructure.Persistence;
 using AudioStreaming.Infrastructure.Persistence.Interceptors;
-using AudioStreaming.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -35,19 +37,33 @@ public static class ConfigureServices
         services
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
-        services.AddIdentityServer()
-            .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+        // services.AddIdentityServer()
+        // .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-        services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
 
-        services.AddAuthentication()
-            .AddIdentityServerJwt();
-
-        services.AddAuthorization(options =>
-            options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.SaveToken = true;
+            options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidAudience = configuration["JWT:ValidAudience"],
+                ValidIssuer = configuration["JWT:ValidIssuer"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]!))
+            };
+        });
 
         return services;
     }

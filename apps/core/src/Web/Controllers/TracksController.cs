@@ -5,11 +5,10 @@ using AudioStreaming.Application.Tracks.Commands.UpdateTrack;
 using AudioStreaming.Application.Tracks.Queries.GetTracksWithPagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace AudioStreaming.Web.Controllers;
 
-[Authorize]
+[Route("api/tracks")]
 public class TracksController : ApiControllerBase
 {
     [HttpGet]
@@ -18,12 +17,14 @@ public class TracksController : ApiControllerBase
         return await Mediator.Send(query);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<int>> Create(CreateTrackCommand command)
     {
         return await Mediator.Send(command);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -40,6 +41,7 @@ public class TracksController : ApiControllerBase
         return NoContent();
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesDefaultResponseType]

@@ -9,7 +9,11 @@ public record UpdateAlbumCommand : IRequest
 {
     public int Id { get; init; }
 
-    public string? Title { get; init; }
+    public string? Name { get; init; }
+
+    public string? ImageUrl { get; init; }
+
+    public int? ArtistId { get; init; }
 }
 
 public class UpdateAlbumCommandHandler : IRequestHandler<UpdateAlbumCommand>
@@ -31,10 +35,11 @@ public class UpdateAlbumCommandHandler : IRequestHandler<UpdateAlbumCommand>
             throw new NotFoundException(nameof(Album), request.Id);
         }
 
-        if (request.Title != null)
-        {
-            entity.Title = request.Title;
-        }
+        entity.Name = request.Name != null ? request.Name : entity.Name;
+
+        entity.ImageUrl = request.ImageUrl;
+
+        entity.ArtistId = request.ArtistId != null ? (int)request.ArtistId : entity.ArtistId;
 
         await _context.SaveChangesAsync(cancellationToken);
 

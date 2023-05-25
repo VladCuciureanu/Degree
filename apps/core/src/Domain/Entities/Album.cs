@@ -2,12 +2,14 @@
 
 public class Album : BaseAuditableEntity
 {
-    public string Title { get; set; } = default!;
+    public string Name { get; set; } = default!;
 
-    public AlbumType Type { get; set; }
+    public string? ImageUrl { get; set; } = null!;
 
-    public int ArtistId { get; set; }
+    public AlbumType Type { get; set; } = default!;
+
+    public int ArtistId { get; set; } = default!;
     public Artist Artist { get; set; } = null!;
 
-    public IList<Track> Tracks { get; private set; } = new List<Track>();
+    public List<Track> Tracks { get; private set; } = new();
 }

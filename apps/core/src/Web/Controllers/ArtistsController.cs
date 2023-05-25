@@ -5,11 +5,10 @@ using AudioStreaming.Application.Artists.Commands.UpdateArtist;
 using AudioStreaming.Application.Artists.Queries.GetArtistsWithPagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace AudioStreaming.Web.Controllers;
 
-[Authorize]
+[Route("api/artists")]
 public class ArtistsController : ApiControllerBase
 {
     [HttpGet]
@@ -18,12 +17,14 @@ public class ArtistsController : ApiControllerBase
         return await Mediator.Send(query);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<int>> Create(CreateArtistCommand command)
     {
         return await Mediator.Send(command);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -40,6 +41,7 @@ public class ArtistsController : ApiControllerBase
         return NoContent();
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesDefaultResponseType]
