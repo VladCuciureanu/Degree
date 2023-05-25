@@ -1,8 +1,8 @@
 using System.Security.Claims;
-
+using Microsoft.AspNetCore.Http;
 using AudioStreaming.Application.Common.Interfaces;
 
-namespace AudioStreaming.Web.Services;
+namespace AudioStreaming.Infrastructure.Services;
 
 public class CurrentUserService : ICurrentUserService
 {

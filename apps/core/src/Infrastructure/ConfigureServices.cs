@@ -3,7 +3,7 @@ using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Infrastructure.Identity;
 using AudioStreaming.Infrastructure.Persistence;
 using AudioStreaming.Infrastructure.Persistence.Interceptors;
-using Microsoft.AspNetCore.Authentication;
+using AudioStreaming.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +44,7 @@ public static class ConfigureServices
         // .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
         services.AddTransient<IIdentityService, IdentityService>();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         services.AddAuthentication(options =>
         {

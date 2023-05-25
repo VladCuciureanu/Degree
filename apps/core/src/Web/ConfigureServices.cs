@@ -1,5 +1,3 @@
-using AudioStreaming.Application.Common.Interfaces;
-using AudioStreaming.Web.Services;
 using Microsoft.OpenApi.Models;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -10,7 +8,6 @@ public static class ConfigureServices
     {
         // Setup services
         services.AddDatabaseDeveloperPageExceptionFilter();
-        services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         // Configure Swagger
         services.AddEndpointsApiExplorer();

@@ -1,99 +1,45 @@
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.AspNetCore.Identity;
-// using System.Security.Claims;
-// using System.IdentityModel.Tokens.Jwt;
-// using Microsoft.IdentityModel.Tokens;
-// using System.Text;
+using AudioStreaming.Application.Common.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
-// namespace AudioStreaming.Controllers
-// {
-//     [Route("api/auth")]
-//     [ApiController]
-//     public class AuthController : ControllerBase
-//     {
-//         private readonly UserManager<User> _userManager;
-//         private readonly RoleManager<IdentityRole> _roleManager;
-//         private readonly IConfiguration _configuration;
-//         private readonly ILogger _logger;
+namespace AudioStreaming.Controllers
+{
+    [Route("api/auth")]
+    [ApiController]
+    public class AuthController : ControllerBase
+    {
+        private readonly IIdentityService _identityService;
 
-//         public AuthController(
-//             UserManager<User> userManager,
-//             RoleManager<IdentityRole> roleManager,
-//             IConfiguration configuration,
-//             ILogger<AuthController> logger)
-//         {
-//             _userManager = userManager;
-//             _roleManager = roleManager;
-//             _configuration = configuration;
-//             _logger = logger;
-//         }
+        public AuthController(IIdentityService identityService)
+        {
+            _identityService = identityService;
+        }
 
-//         [HttpPost]
-//         [Route("login")]
-//         public async Task<IActionResult> Login(string name, string password)
-//         {
-//             var user = await _userManager.FindByNameAsync(name);
-//             if (user != null && await _userManager.CheckPasswordAsync(user, password))
-//             {
-//                 var userRoles = await _userManager.GetRolesAsync(user);
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login(string username, string password)
+        {
+            var result = await _identityService.Login(username, password);
 
-//                 var authClaims = new List<Claim>
-//                 {
-//                     new Claim(ClaimTypes.Name, user.UserName!),
-//                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-//                 };
+            if (result is null)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized);
+            }
 
-//                 foreach (var userRole in userRoles)
-//                 {
-//                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-//                 }
+            return Ok(result);
+        }
 
-//                 var token = GetToken(authClaims);
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register(string username, string password)
+        {
+            var result = await _identityService.Register(username, password);
 
-//                 return Ok(new
-//                 {
-//                     token = new JwtSecurityTokenHandler().WriteToken(token),
-//                     expiration = token.ValidTo
-//                 });
-//             }
-//             return Unauthorized();
-//         }
+            if (!result.Succeeded)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new { status = "Bad Request", errors = result.Errors });
+            }
 
-//         [HttpPost]
-//         [Route("register")]
-//         public async Task<IActionResult> Register(string username, string password)
-//         {
-//             var userExists = await _userManager.FindByNameAsync(username);
-//             if (userExists != null)
-//                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "User already exists!" });
-
-//             ApplicationUser user = new()
-//             {
-//                 UserName = username,
-//                 SecurityStamp = Guid.NewGuid().ToString(),
-//             };
-//             var result = await _userManager.CreateAsync(user, password);
-//             if (!result.Succeeded)
-//             {
-//                 return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-//             }
-
-//             return Ok(new { Status = "Success", Message = "User created successfully!" });
-//         }
-
-//         private JwtSecurityToken GetToken(List<Claim> authClaims)
-//         {
-//             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]!));
-
-//             var token = new JwtSecurityToken(
-//                 issuer: _configuration["JWT:ValidIssuer"],
-//                 audience: _configuration["JWT:ValidAudience"],
-//                 expires: DateTime.Now.AddHours(3),
-//                 claims: authClaims,
-//                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-//                 );
-
-//             return token;
-//         }
-//     }
-// }
+            return Ok(new { Status = "Success", Message = "User created successfully!" });
+        }
+    }
+}
