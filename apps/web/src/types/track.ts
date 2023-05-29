@@ -1,4 +1,4 @@
-export type Song = {
+export type TrackDto = {
   id: number;
   name: string;
 };

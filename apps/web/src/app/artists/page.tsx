@@ -1,4 +1,4 @@
-import { Artist } from "@/types/artist";
+import { ArtistDto } from "@/types/artist";
 import styles from "./page.module.scss";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,7 +18,7 @@ async function getData() {
 }
 
 export default async function ArtistsPage() {
-  const data: PaginatedList<Artist> = await getData();
+  const data: PaginatedList<ArtistDto> = await getData();
   return (
     <main className={styles.Container}>
       <h2 className={styles.Header}>Artists</h2>

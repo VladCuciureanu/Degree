@@ -7,6 +7,8 @@ using AudioStreaming.Application.Albums.Queries.GetAlbumsWithPagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using AudioStreaming.Application.Albums.Queries.GetAlbum;
+using AudioStreaming.Application.Tracks.Queries.GetAlbumTracks;
+using AudioStreaming.Application.Tracks.Queries;
 
 namespace AudioStreaming.Web.Controllers;
 
@@ -58,5 +60,11 @@ public class AlbumsController : ApiControllerBase
         await Mediator.Send(new DeleteAlbumCommand(id));
 
         return NoContent();
+    }
+
+    [HttpGet("{id}/tracks")]
+    public async Task<ActionResult<List<TrackDto>>> GetAlbumTracks(int id)
+    {
+        return await Mediator.Send(new GetAlbumTracksQuery(id));
     }
 }

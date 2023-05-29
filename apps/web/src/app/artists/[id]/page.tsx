@@ -1,4 +1,4 @@
-import { Artist } from "@/types/artist";
+import { ArtistDto } from "@/types/artist";
 import styles from "./page.module.scss";
 import Image from "next/image";
 
@@ -22,7 +22,7 @@ type ArtistDetailsPageParams = {
 export default async function ArtistDetailsPage(
   props: ArtistDetailsPageParams
 ) {
-  const data: Artist = await getData(props.params.id);
+  const data: ArtistDto = await getData(props.params.id);
   return (
     <main className={styles.Container}>
       <h2>{data.name}</h2>

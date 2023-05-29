@@ -1,4 +1,4 @@
-import { Album } from "@/types/album";
+import { AlbumDto } from "@/types/album";
 import styles from "./page.module.scss";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,7 +18,7 @@ async function getData() {
 }
 
 export default async function AlbumsPage() {
-  const data: PaginatedList<Album> = await getData();
+  const data: PaginatedList<AlbumDto> = await getData();
   return (
     <main className={styles.Container}>
       <h2 className={styles.Header}>Albums</h2>
