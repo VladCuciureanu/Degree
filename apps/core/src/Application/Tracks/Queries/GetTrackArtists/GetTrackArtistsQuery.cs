@@ -1,9 +1,9 @@
-using AutoMapper;
+using AudioStreaming.Application.Artists.Queries;
 using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Application.Common.Mappings;
-using AudioStreaming.Application.Artists.Queries;
-using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace AudioStreaming.Application.Tracks.Queries.GetTrackArtists;
 

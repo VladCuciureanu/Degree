@@ -1,6 +1,6 @@
-﻿using AutoMapper;
+﻿using AudioStreaming.Application.Common.Models;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using AudioStreaming.Application.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AudioStreaming.Application.Common.Mappings;

@@ -1,8 +1,8 @@
 using AudioStreaming.Application.Common.Exceptions;
 using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace AudioStreaming.Application.Tracks.Commands.UpdateTrack;
 

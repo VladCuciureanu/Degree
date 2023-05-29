@@ -1,8 +1,8 @@
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Application.Common.Mappings;
 using AudioStreaming.Application.Common.Models;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 
 namespace AudioStreaming.Application.Albums.Queries.GetAlbumsWithPagination;

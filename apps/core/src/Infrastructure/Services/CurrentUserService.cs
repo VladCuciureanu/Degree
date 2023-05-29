@@ -1,6 +1,6 @@
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
 using AudioStreaming.Application.Common.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace AudioStreaming.Infrastructure.Services;
 
