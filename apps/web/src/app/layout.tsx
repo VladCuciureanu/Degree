@@ -4,6 +4,8 @@ import "@/styles/globals.scss";
 import styles from "./layout.module.scss";
 
 import { Inter } from "next/font/google";
+import Player from "@/components/Shared/Player";
+import Providers from "@/components/Shared/Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -19,8 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, styles.Container)}>
-        <Header />
-        {children}
+        <Providers>
+          <Header />
+          {children}
+          <Player />
+        </Providers>
       </body>
     </html>
   );

@@ -1,19 +1,23 @@
 "use client";
 import { TrackDto } from "@/types/track";
 import styles from "./index.module.scss";
+import { useContext } from "react";
+import { PlayerContext } from "../Providers/PlayerProvider";
 
 type TrackProps = {
   data: TrackDto;
 };
 
 export default function Track(props: TrackProps) {
-  const isPlaying = false;
+  const playerContext = useContext(PlayerContext);
+  const isPlaying =
+    playerContext.track?.id === props.data.id && playerContext.playing;
 
   const handlePlayButton = () => {
     if (isPlaying) {
-      // pause
+      playerContext.pause();
     } else {
-      // start playing and set state
+      playerContext.play(props.data.id);
     }
   };
 

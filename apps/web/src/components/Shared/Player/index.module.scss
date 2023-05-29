@@ -1,0 +1,61 @@
+.Container {
+  --player-height: 100px;
+  --player-gap: 16px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: var(--player-height);
+  border-top: 1px solid lightgray;
+  padding: 0 var(--player-gap);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Left,
+.Middle,
+.Right {
+  display: flex;
+}
+
+.Left {
+  align-items: center;
+  justify-content: left;
+  flex-direction: row;
+  gap: var(--player-gap);
+
+  .CoverArt {
+    height: calc(var(--player-height) - var(--player-gap));
+    width: calc(var(--player-height) - var(--player-gap));
+    border-radius: 8px;
+  }
+
+  .TextContainer {
+    display: flex;
+    flex-direction: column;
+
+    .SongTitle {
+      color: black;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .ArtistName {
+      color: gray;
+      text-decoration: none;
+    }
+  }
+}
+
+.Middle {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Right {
+  justify-content: right;
+}

@@ -8,7 +8,9 @@ import Track from "@/components/Shared/Track";
 export const revalidate = 0;
 
 async function getAlbumData(id: string) {
-  const res = await fetch(`${process.env.API_URL}/api/albums/${id}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/albums/${id}`
+  );
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -19,7 +21,9 @@ async function getAlbumData(id: string) {
 }
 
 async function getAlbumTracksData(id: string) {
-  const res = await fetch(`${process.env.API_URL}/api/albums/${id}/tracks`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/albums/${id}/tracks`
+  );
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary

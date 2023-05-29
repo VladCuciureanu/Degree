@@ -7,7 +7,7 @@ import { PaginatedList } from "@/types/common";
 export const revalidate = 0;
 
 async function getData() {
-  const res = await fetch(`${process.env.API_URL}/api/albums`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/albums`);
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary

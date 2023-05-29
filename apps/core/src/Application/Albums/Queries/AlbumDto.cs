@@ -10,4 +10,6 @@ public class AlbumDto : IMapFrom<Album>
     public string Name { get; set; } = default!;
 
     public string? ImageUrl { get; set; } = null!;
+
+    public int ArtistId { get; set; } = default!;
 }

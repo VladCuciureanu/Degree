@@ -5,8 +5,10 @@ import Image from "next/image";
 export const revalidate = 0;
 
 async function getData(id: string) {
-  const res = await fetch(`${process.env.API_URL}/api/artists/${id}`);
-  console.log({ res });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/artists/${id}`
+  );
+
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
