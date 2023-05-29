@@ -6,7 +6,7 @@ export const revalidate = 0;
 
 async function getData(id: string) {
   const res = await fetch(`${process.env.API_URL}/api/artists/${id}`);
-
+  console.log({ res });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
@@ -23,7 +23,6 @@ export default async function ArtistDetailsPage(
   props: ArtistDetailsPageParams
 ) {
   const data: Artist = await getData(props.params.id);
-
   return (
     <main className={styles.Container}>
       <h2>{data.name}</h2>

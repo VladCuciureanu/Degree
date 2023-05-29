@@ -2,6 +2,7 @@ import { Album } from "@/types/album";
 import styles from "./page.module.scss";
 import Link from "next/link";
 import Image from "next/image";
+import { PaginatedList } from "@/types/common";
 
 export const revalidate = 0;
 
@@ -17,12 +18,12 @@ async function getData() {
 }
 
 export default async function AlbumsPage() {
-  const data: Album[] = await getData();
+  const data: PaginatedList<Album> = await getData();
   return (
     <main className={styles.Container}>
       <h2 className={styles.Header}>Albums</h2>
       <div className={styles.AlbumGrid}>
-        {data.map((album) => (
+        {data.items.map((album) => (
           <Link
             key={album.id}
             href={`/albums/${album.id}`}

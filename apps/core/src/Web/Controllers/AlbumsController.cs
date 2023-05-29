@@ -6,6 +6,7 @@ using AudioStreaming.Application.Albums.Queries;
 using AudioStreaming.Application.Albums.Queries.GetAlbumsWithPagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using AudioStreaming.Application.Albums.Queries.GetAlbum;
 
 namespace AudioStreaming.Web.Controllers;
 
@@ -16,6 +17,12 @@ public class AlbumsController : ApiControllerBase
     public async Task<ActionResult<PaginatedList<AlbumDto>>> GetAlbumsWithPagination([FromQuery] GetAlbumsWithPaginationQuery query)
     {
         return await Mediator.Send(query);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<AlbumDto>> GetAlbum(int id)
+    {
+        return await Mediator.Send(new GetAlbumQuery(id));
     }
 
     [Authorize]
