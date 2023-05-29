@@ -1,30 +1,18 @@
 import { ArtistDto } from "@/types/artist";
 import styles from "./page.module.scss";
 import Image from "next/image";
+import { getArtist } from "@/libs/artists";
 
 export const revalidate = 0;
 
-async function getData(id: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/artists/${id}`
-  );
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
 type ArtistDetailsPageParams = {
-  params: { id: string };
+  params: { id: number };
 };
 
 export default async function ArtistDetailsPage(
   props: ArtistDetailsPageParams
 ) {
-  const data: ArtistDto = await getData(props.params.id);
+  const data: ArtistDto = await getArtist(props.params.id);
   return (
     <main className={styles.Container}>
       <h2>{data.name}</h2>

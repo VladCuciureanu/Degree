@@ -3,6 +3,7 @@ using AudioStreaming.Application.Common.Mappings;
 using AudioStreaming.Application.Common.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using MediatR;
 
 namespace AudioStreaming.Application.Albums.Queries.GetAlbumsWithPagination;
@@ -27,6 +28,7 @@ public class GetAlbumsWithPaginationQueryHandler : IRequestHandler<GetAlbumsWith
     public async Task<PaginatedList<AlbumDto>> Handle(GetAlbumsWithPaginationQuery request, CancellationToken cancellationToken)
     {
         return await _context.Albums
+            .Include(a => a.Artist)
             .OrderBy(x => x.Name)
             .ProjectTo<AlbumDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageNumber, request.PageSize);

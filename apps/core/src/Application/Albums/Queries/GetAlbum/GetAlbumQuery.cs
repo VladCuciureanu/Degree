@@ -30,6 +30,7 @@ public class GetAlbumQueryHandler : IRequestHandler<GetAlbumQuery, AlbumDto>
     public async Task<AlbumDto> Handle(GetAlbumQuery request, CancellationToken cancellationToken)
     {
         return await _context.Albums
+            .Include(a => a.Artist)
             .ProjectTo<AlbumDto>(_mapper.ConfigurationProvider)
             .FirstAsync(it => it.Id == request.Id);
     }

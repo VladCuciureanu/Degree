@@ -1,6 +1,8 @@
+import { ArtistDto } from "./artist";
+
 export type AlbumDto = {
   id: number;
   name: string;
-  imageUrl: string;
-  artistId: number;
+  imageUrl?: string;
+  artist: ArtistDto;
 };

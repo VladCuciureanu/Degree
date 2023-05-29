@@ -3,22 +3,12 @@ import styles from "./page.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { PaginatedList } from "@/types/common";
+import { getArtists } from "@/libs/artists";
 
 export const revalidate = 0;
 
-async function getData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/artists`);
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
 export default async function ArtistsPage() {
-  const data: PaginatedList<ArtistDto> = await getData();
+  const data: PaginatedList<ArtistDto> = await getArtists();
   return (
     <main className={styles.Container}>
       <h2 className={styles.Header}>Artists</h2>
