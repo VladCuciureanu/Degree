@@ -1,7 +1,7 @@
 ﻿using AudioStreaming.Application.Common.Mappings;
 using AudioStreaming.Domain.Entities;
 
-namespace AudioStreaming.Application.Albums.Queries.GetAlbumsWithPagination;
+namespace AudioStreaming.Application.Albums.Queries;
 
 public class AlbumDto : IMapFrom<Album>
 {

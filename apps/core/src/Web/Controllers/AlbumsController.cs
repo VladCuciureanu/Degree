@@ -2,6 +2,7 @@ using AudioStreaming.Application.Common.Models;
 using AudioStreaming.Application.Albums.Commands.CreateAlbum;
 using AudioStreaming.Application.Albums.Commands.DeleteAlbum;
 using AudioStreaming.Application.Albums.Commands.UpdateAlbum;
+using AudioStreaming.Application.Albums.Queries;
 using AudioStreaming.Application.Albums.Queries.GetAlbumsWithPagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

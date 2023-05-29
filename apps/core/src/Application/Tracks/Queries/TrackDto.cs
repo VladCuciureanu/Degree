@@ -1,7 +1,7 @@
 ﻿using AudioStreaming.Application.Common.Mappings;
 using AudioStreaming.Domain.Entities;
 
-namespace AudioStreaming.Application.Tracks.Queries.GetTracksWithPagination;
+namespace AudioStreaming.Application.Tracks.Queries;
 
 public class TrackDto : IMapFrom<Track>
 {

@@ -2,6 +2,7 @@ using AudioStreaming.Application.Common.Models;
 using AudioStreaming.Application.Artists.Commands.CreateArtist;
 using AudioStreaming.Application.Artists.Commands.DeleteArtist;
 using AudioStreaming.Application.Artists.Commands.UpdateArtist;
+using AudioStreaming.Application.Artists.Queries;
 using AudioStreaming.Application.Artists.Queries.GetArtistsWithPagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
