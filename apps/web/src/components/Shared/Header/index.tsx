@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./index.module.scss";
+import UserInfo from "./UserInfo";
 
 export default function Sidebar() {
   return (
@@ -15,7 +16,7 @@ export default function Sidebar() {
           Artists
         </Link>
       </nav>
-      <p>s</p>
+      <UserInfo />
     </header>
   );
 }
