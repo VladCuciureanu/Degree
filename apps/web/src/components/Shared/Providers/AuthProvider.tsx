@@ -18,26 +18,38 @@ export default function AuthProvider(props: { children: ReactNode }) {
     return getAuthToken(username, password)
       .then((res) => {
         localStorage.setItem("token", res.token);
+        parseUser();
         return true;
       })
       .catch(() => {
+        parseUser();
         return false;
       });
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const parsedToken = parseJwt(token);
-      const user: UserDto = {
-        username:
-          parsedToken[
-            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
-          ],
-      };
-      setUser(user);
+  const parseUser = () => {
+    let user: UserDto | null = null;
+
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const parsedToken = parseJwt(token);
+        const parsedUser: UserDto = {
+          username:
+            parsedToken[
+              "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+            ],
+        };
+        user = parsedUser;
+      }
     }
-  }, [localStorage.getItem("token")]);
+
+    setUser(user);
+  };
+
+  useEffect(() => {
+    parseUser();
+  }, []);
 
   return (
     <AuthContext.Provider
