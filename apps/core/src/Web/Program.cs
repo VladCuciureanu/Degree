@@ -40,6 +40,9 @@ app.UseSwaggerUI();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// We need this for HTTP Range requests
+app.UseStaticFiles();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{id?}"

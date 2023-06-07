@@ -3,9 +3,11 @@ using AudioStreaming.Application.Common.Models;
 using AudioStreaming.Application.Tracks.Commands.CreateTrack;
 using AudioStreaming.Application.Tracks.Commands.DeleteTrack;
 using AudioStreaming.Application.Tracks.Commands.UpdateTrack;
+using AudioStreaming.Application.Tracks.Commands.UploadTrack;
 using AudioStreaming.Application.Tracks.Queries;
 using AudioStreaming.Application.Tracks.Queries.GetTrack;
 using AudioStreaming.Application.Tracks.Queries.GetTrackArtists;
+using AudioStreaming.Application.Tracks.Queries.GetTrackFile;
 using AudioStreaming.Application.Tracks.Queries.GetTracksWithPagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +17,12 @@ namespace AudioStreaming.Web.Controllers;
 [Route("api/tracks")]
 public class TracksController : ApiControllerBase
 {
+    private readonly IHostEnvironment _environment;
+
+    public TracksController(IHostEnvironment environment)
+    {
+        this._environment = environment;
+    }
     [HttpGet]
     public async Task<ActionResult<PaginatedList<TrackDto>>> GetTracksWithPagination([FromQuery] GetTracksWithPaginationQuery query)
     {
@@ -98,5 +106,46 @@ public class TracksController : ApiControllerBase
         await Mediator.Send(command);
 
         return NoContent();
+    }
+
+    [HttpGet("{id}/content")]
+    public async Task<IActionResult> GetFile(int id)
+    {
+        var fileUrl = await Mediator.Send(new GetTrackFileQuery(id));
+
+        if (fileUrl == null)
+        {
+            return NoContent();
+        }
+
+        Stream payload = _environment.ContentRootFileProvider.GetFileInfo(fileUrl).CreateReadStream();
+
+        return File(payload, "audio/mpeg", enableRangeProcessing: true);
+    }
+
+    [Authorize]
+    [HttpPut("{id}/content")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> UploadFile(int id, IFormFile file)
+    {
+        byte[] payload = await file.OpenReadStream().ToArrayAsync();
+
+        String basePath = _environment.ContentRootPath;
+
+        await Mediator.Send(new UploadTrackCommand(id, payload, basePath));
+
+        return NoContent();
+    }
+}
+
+public static class StreamExtensions
+{
+    public static async Task<byte[]> ToArrayAsync(this Stream stream)
+    {
+        var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        return memoryStream.ToArray();
     }
 }

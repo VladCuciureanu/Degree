@@ -28,6 +28,10 @@ export default function Track(props: TrackProps) {
           {isPlaying ? <>Pause</> : <>Play</>}
         </button>
         <p>{props.data.name}</p>
+        <audio
+          controls
+          src={`http://localhost:5049/api/tracks/${props.data.id}/content`}
+        />
       </div>
       <div className={styles.Right}>...</div>
     </article>

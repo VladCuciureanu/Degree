@@ -3,8 +3,8 @@ using AudioStreaming.Application.Common.Mappings;
 using AudioStreaming.Application.Common.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace AudioStreaming.Application.Albums.Queries.GetAlbumsWithPagination;
 

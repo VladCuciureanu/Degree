@@ -27,6 +27,11 @@ public class DeleteTrackCommandHandler : IRequestHandler<DeleteTrackCommand>
             throw new NotFoundException(nameof(Track), request.Id);
         }
 
+        if (entity.Url != null)
+        {
+            File.Delete(entity.Url);
+        }
+
         _context.Tracks.Remove(entity);
 
         entity.AddDomainEvent(new TrackDeletedEvent(entity));
