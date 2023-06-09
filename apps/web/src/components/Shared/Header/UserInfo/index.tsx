@@ -8,7 +8,6 @@ import styles from "./index.module.scss";
 
 export default function HeaderUserInfo() {
   const authContext = useContext(AuthContext);
-  const router = useRouter();
 
   if (authContext.user === null)
     return (
@@ -24,8 +23,7 @@ export default function HeaderUserInfo() {
 
   const handleLogOut = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    localStorage.removeItem("token");
-    router.refresh();
+    authContext.logOut();
   };
 
   return (

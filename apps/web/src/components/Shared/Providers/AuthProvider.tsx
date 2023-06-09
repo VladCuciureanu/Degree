@@ -7,6 +7,7 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 type AuthContextValue = {
   user: UserDto | null;
   login: (username: string, password: string) => Promise<boolean>;
+  logOut: () => void;
   register: (username: string, password: string) => Promise<boolean>;
 };
 
@@ -38,6 +39,11 @@ export default function AuthProvider(props: { children: ReactNode }) {
       });
   };
 
+  const logOut = async () => {
+    localStorage.removeItem("token");
+    parseUser();
+  };
+
   const parseUser = () => {
     let user: UserDto | null = null;
 
@@ -67,6 +73,7 @@ export default function AuthProvider(props: { children: ReactNode }) {
       value={{
         user,
         login,
+        logOut,
         register,
       }}
     >
