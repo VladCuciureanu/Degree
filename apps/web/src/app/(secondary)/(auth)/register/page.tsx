@@ -1,10 +1,11 @@
 "use client";
 import { AuthContext } from "@/components/Shared/Providers/AuthProvider";
 import { FormEvent, useContext, useState } from "react";
-import styles from "./page.module.scss";
+import styles from "../page.module.scss";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,25 +18,45 @@ export default function LoginPage() {
 
   const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setIsErrorMessage(false);
+    setMessage("Registering...");
+    register(username, password);
+  };
+
+  const register = (username: string, password: string) => {
+    authContext.register(username, password).then((res) => {
+      if (res) {
+        setIsErrorMessage(false);
+        setMessage("Registered successfully! Logging in...");
+        login(username, password);
+      } else {
+        setIsErrorMessage(true);
+        setMessage("An error occured while registering user");
+      }
+    });
+  };
+
+  const login = (username: string, password: string) => {
     authContext.login(username, password).then((res) => {
       if (res) {
-        setMessage("Logged in!");
+        setIsErrorMessage(false);
+        setMessage("Registered and logged in!");
         setTimeout(() => {
           router.push("/");
         }, 2500);
       } else {
-        setMessage("Failed to log in :(");
         setIsErrorMessage(true);
+        setMessage("An error occured while logging in");
       }
     });
   };
 
   return (
     <>
-      <h2 style={isErrorMessage ? { color: "red" } : { color: "black" }}>
-        {message}
-      </h2>
       <form className={styles.AuthForm} onSubmit={onSubmit}>
+        <h4 style={isErrorMessage ? { color: "red" } : { color: "black" }}>
+          {message}
+        </h4>
         <input
           value={username}
           onChange={(evt) => setUsername(evt.target.value)}
@@ -49,7 +70,12 @@ export default function LoginPage() {
           type="password"
           required
         />
-        <button>Login</button>
+        <button>Register</button>
+        <p className={styles.SignUpText}>
+          Already have an account?
+          <br />
+          <Link href="/login">Sign in</Link>
+        </p>
       </form>
     </>
   );

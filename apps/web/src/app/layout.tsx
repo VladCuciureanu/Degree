@@ -21,11 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, styles.Container)}>
-        <Providers>
-          <Header />
-          {children}
-          <Player />
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
