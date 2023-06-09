@@ -19,12 +19,15 @@ namespace AudioStreaming.Web.Controllers;
 [Route("api/tracks")]
 public class TracksController : ApiControllerBase
 {
+    private readonly IConfiguration _configuration;
     private readonly IHostEnvironment _environment;
 
-    public TracksController(IHostEnvironment environment)
+    public TracksController(IHostEnvironment environment, IConfiguration configuration)
     {
         this._environment = environment;
+        this._configuration = configuration;
     }
+
     [HttpGet]
     public async Task<ActionResult<PaginatedList<TrackDto>>> GetTracksWithPagination([FromQuery] GetTracksWithPaginationQuery query)
     {
@@ -123,7 +126,9 @@ public class TracksController : ApiControllerBase
             return NoContent();
         }
 
-        Stream payload = _environment.ContentRootFileProvider.GetFileInfo(fileUrl).CreateReadStream();
+        String fullFilePath = Path.Join(Path.GetFullPath(_configuration.GetValue<String>("ContentPath")!), fileUrl);
+
+        Stream payload = System.IO.File.OpenRead(fullFilePath);
 
         return File(payload, "audio/mpeg", enableRangeProcessing: true);
     }
@@ -137,7 +142,7 @@ public class TracksController : ApiControllerBase
     {
         byte[] payload = await file.OpenReadStream().ToArrayAsync();
 
-        String basePath = _environment.ContentRootPath;
+        String basePath = Path.GetFullPath(_configuration.GetValue<String>("ContentPath")!);
 
         await Mediator.Send(new UploadTrackCommand(id, payload, basePath));
 
