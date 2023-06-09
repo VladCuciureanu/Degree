@@ -1,6 +1,7 @@
 using AudioStreaming.Application.Common.Exceptions;
 using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Domain.Entities;
+using AudioStreaming.Domain.Events;
 using MediatR;
 
 namespace AudioStreaming.Application.Tracks.Commands.UpdateTrack;
@@ -36,6 +37,8 @@ public class UpdateTrackCommandHandler : IRequestHandler<UpdateTrackCommand>
         entity.Name = request.Name != null ? request.Name : entity.Name;
 
         entity.AlbumId = request.AlbumId != null ? (int)request.AlbumId : entity.AlbumId;
+
+        entity.AddDomainEvent(new TrackUpdatedEvent(entity));
 
         await _context.SaveChangesAsync(cancellationToken);
 

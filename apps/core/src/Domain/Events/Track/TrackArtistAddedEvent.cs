@@ -2,10 +2,13 @@ namespace AudioStreaming.Domain.Events;
 
 public class TrackArtistAddedEvent : BaseEvent
 {
-    public TrackArtistAddedEvent(Track item)
+    public TrackArtistAddedEvent(Track track, Artist artist)
     {
-        Item = item;
+        Track = track;
+        Artist = artist;
     }
 
-    public Track Item { get; }
+    public Track Track { get; }
+
+    public Artist Artist { get; }
 }

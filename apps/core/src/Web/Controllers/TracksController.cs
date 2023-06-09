@@ -1,7 +1,9 @@
 using AudioStreaming.Application.Artists.Queries;
 using AudioStreaming.Application.Common.Models;
+using AudioStreaming.Application.Tracks.Commands.AddTrackArtist;
 using AudioStreaming.Application.Tracks.Commands.CreateTrack;
 using AudioStreaming.Application.Tracks.Commands.DeleteTrack;
+using AudioStreaming.Application.Tracks.Commands.RemoveTrackArtist;
 using AudioStreaming.Application.Tracks.Commands.UpdateTrack;
 using AudioStreaming.Application.Tracks.Commands.UploadTrack;
 using AudioStreaming.Application.Tracks.Queries;
@@ -37,6 +39,9 @@ public class TracksController : ApiControllerBase
 
     [Authorize]
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
     public async Task<ActionResult<int>> Create(CreateTrackCommand command)
     {
         return await Mediator.Send(command);

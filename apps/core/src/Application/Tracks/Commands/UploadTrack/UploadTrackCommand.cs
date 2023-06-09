@@ -1,6 +1,7 @@
 using AudioStreaming.Application.Common.Exceptions;
 using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Domain.Entities;
+using AudioStreaming.Domain.Events;
 using MediatR;
 
 namespace AudioStreaming.Application.Tracks.Commands.UploadTrack;
@@ -43,6 +44,8 @@ public class UploadTrackCommandHandler : IRequestHandler<UploadTrackCommand>
         File.WriteAllBytes(request.BasePath + "/" + fileName, request.Payload);
 
         entity.Url = fileName;
+
+        entity.AddDomainEvent(new TrackUpdatedEvent(entity));
 
         await _context.SaveChangesAsync(cancellationToken);
 

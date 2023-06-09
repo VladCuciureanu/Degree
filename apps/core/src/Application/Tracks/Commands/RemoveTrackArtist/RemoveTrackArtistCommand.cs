@@ -1,10 +1,11 @@
 using AudioStreaming.Application.Common.Exceptions;
 using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Domain.Entities;
+using AudioStreaming.Domain.Events;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace AudioStreaming.Application.Tracks.Commands.UpdateTrack;
+namespace AudioStreaming.Application.Tracks.Commands.RemoveTrackArtist;
 
 public record RemoveTrackArtistCommand : IRequest
 {
@@ -41,7 +42,9 @@ public class RemoveTrackArtistCommandHandler : IRequestHandler<RemoveTrackArtist
             throw new NotFoundException(nameof(Artist), request.ArtistId);
         }
 
-        Console.Write(track.Artists.Remove(artist));
+        track.Artists.Remove(artist);
+
+        track.AddDomainEvent(new TrackArtistRemovedEvent(track, artist));
 
         await _context.SaveChangesAsync(cancellationToken);
 

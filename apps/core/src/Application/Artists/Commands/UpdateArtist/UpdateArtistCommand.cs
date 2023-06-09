@@ -1,6 +1,7 @@
 using AudioStreaming.Application.Common.Exceptions;
 using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Domain.Entities;
+using AudioStreaming.Domain.Events;
 using MediatR;
 
 namespace AudioStreaming.Application.Artists.Commands.UpdateArtist;
@@ -36,6 +37,8 @@ public class UpdateArtistCommandHandler : IRequestHandler<UpdateArtistCommand>
         entity.Name = request.Name != null ? request.Name : entity.Name;
 
         entity.ImageUrl = request.ImageUrl;
+
+        entity.AddDomainEvent(new ArtistUpdatedEvent(entity));
 
         await _context.SaveChangesAsync(cancellationToken);
 

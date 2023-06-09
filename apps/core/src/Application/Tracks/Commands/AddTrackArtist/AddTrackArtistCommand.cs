@@ -1,9 +1,10 @@
 using AudioStreaming.Application.Common.Exceptions;
 using AudioStreaming.Application.Common.Interfaces;
 using AudioStreaming.Domain.Entities;
+using AudioStreaming.Domain.Events;
 using MediatR;
 
-namespace AudioStreaming.Application.Tracks.Commands.UpdateTrack;
+namespace AudioStreaming.Application.Tracks.Commands.AddTrackArtist;
 
 public record AddTrackArtistCommand : IRequest
 {
@@ -40,6 +41,8 @@ public class AddTrackArtistCommandHandler : IRequestHandler<AddTrackArtistComman
         }
 
         track.Artists.Add(artist);
+
+        track.AddDomainEvent(new TrackArtistAddedEvent(track, artist));
 
         await _context.SaveChangesAsync(cancellationToken);
 

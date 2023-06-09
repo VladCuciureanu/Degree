@@ -9,5 +9,9 @@ public class CreateTrackCommandValidator : AbstractValidator<CreateTrackCommand>
         RuleFor(v => v.Name)
             .NotEmpty().WithMessage("Name is required.")
             .MaximumLength(128).WithMessage("Name must not exceed 128 characters.");
+
+        RuleFor(v => v.AlbumId)
+        .NotEmpty().WithMessage("Track must be linked to an album.")
+        .GreaterThan(0);
     }
 }

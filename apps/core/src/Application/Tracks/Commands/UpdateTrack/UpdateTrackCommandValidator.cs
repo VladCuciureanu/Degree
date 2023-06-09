@@ -8,5 +8,8 @@ public class UpdateTrackCommandValidator : AbstractValidator<UpdateTrackCommand>
     {
         RuleFor(v => v.Name)
     .MaximumLength(128).WithMessage("Name must not exceed 128 characters.");
+
+        RuleFor(v => v.AlbumId)
+            .GreaterThan(0);
     }
 }

@@ -2,10 +2,10 @@ namespace AudioStreaming.Domain.Events;
 
 public class TrackArtistRemovedEvent : BaseEvent
 {
-    public TrackArtistRemovedEvent(Track item)
+    public TrackArtistRemovedEvent(Track track, Artist artist)
     {
-        Item = item;
+        Track = track;
     }
 
-    public Track Item { get; }
+    public Track Track { get; }
 }

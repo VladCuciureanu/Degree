@@ -29,6 +29,9 @@ public class AlbumsController : ApiControllerBase
 
     [Authorize]
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
     public async Task<ActionResult<int>> Create(CreateAlbumCommand command)
     {
         return await Mediator.Send(command);

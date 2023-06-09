@@ -9,5 +9,7 @@ public class CreateArtistCommandValidator : AbstractValidator<CreateArtistComman
         RuleFor(v => v.Name)
             .NotEmpty().WithMessage("Name is required.")
             .MaximumLength(128).WithMessage("Name must not exceed 128 characters.");
+
+        RuleFor(v => v.ImageUrl);
     }
 }

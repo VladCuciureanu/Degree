@@ -8,5 +8,7 @@ public class UpdateArtistCommandValidator : AbstractValidator<UpdateArtistComman
     {
         RuleFor(v => v.Name)
             .MaximumLength(128).WithMessage("Name must not exceed 128 characters.");
+
+        RuleFor(v => v.ImageUrl);
     }
 }

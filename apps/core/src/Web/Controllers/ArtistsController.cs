@@ -27,6 +27,9 @@ public class ArtistsController : ApiControllerBase
 
     [Authorize]
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
     public async Task<ActionResult<int>> Create(CreateArtistCommand command)
     {
         return await Mediator.Send(command);
