@@ -121,49 +121,62 @@ public class ApplicationDbContextInitialiser
                 new Track
                 {
                     Name = "Fake Track 1",
-                    AlbumId = 1
+                    Number = 1,
+                    AlbumId = 1,
                 },
                 new Track
                 {
                     Name = "Fake Track 2",
+                    Number = 2,
                     AlbumId = 1
                 },
                 new Track
                 {
                     Name = "Fake Track 3",
+                    Number = 3,
                     AlbumId = 1
                 },
                 new Track
                 {
                     Name = "Fake Track 4",
+                    Number = 1,
                     AlbumId = 2
                 },
                 new Track
                 {
                     Name = "Fake Track 5",
+                    Number = 2,
                     AlbumId = 2
                 },
                 new Track
                 {
                     Name = "Fake Track 6",
+                    Number = 3,
                     AlbumId = 2
                 },
                 new Track
                 {
                     Name = "Fake Track 7",
+                    Number = 1,
                     AlbumId = 3
                 },
                 new Track
                 {
                     Name = "Fake Track 8",
+                    Number = 2,
                     AlbumId = 3
                 },
                 new Track
                 {
                     Name = "Fake Track 9",
+                    Number = 3,
                     AlbumId = 3
                 }
             );
+
+            await _context.SaveChangesAsync();
+
+            await _context.Tracks.ForEachAsync(t => t.Artists.AddRange(_context.Artists));
 
             await _context.SaveChangesAsync();
         }

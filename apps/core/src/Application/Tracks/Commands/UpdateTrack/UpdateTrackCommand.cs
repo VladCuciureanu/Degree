@@ -12,6 +12,8 @@ public record UpdateTrackCommand : IRequest
 
     public string? Name { get; init; }
 
+    public int? Number { get; init; }
+
     public int? AlbumId { get; init; }
 }
 
@@ -35,6 +37,8 @@ public class UpdateTrackCommandHandler : IRequestHandler<UpdateTrackCommand>
         }
 
         entity.Name = request.Name != null ? request.Name : entity.Name;
+
+        entity.Number = request.Number != null ? (int)request.Number : entity.Number;
 
         entity.AlbumId = request.AlbumId != null ? (int)request.AlbumId : entity.AlbumId;
 

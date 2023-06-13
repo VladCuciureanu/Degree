@@ -9,5 +9,7 @@ public class TrackDto : IMapFrom<Track>
 
     public string Name { get; set; } = default!;
 
+    public int Number { get; set; } = default!;
+
     public int AlbumId { get; set; } = default!;
 }

@@ -9,6 +9,8 @@ public record CreateTrackCommand : IRequest<int>
 {
     public string Name { get; init; } = default!;
 
+    public int Number { get; init; } = default!;
+
     public int AlbumId { get; init; } = default!;
 }
 
@@ -26,6 +28,7 @@ public class CreateTrackCommandHandler : IRequestHandler<CreateTrackCommand, int
         var entity = new Track
         {
             Name = request.Name,
+            Number = request.Number,
             AlbumId = request.AlbumId
         };
 

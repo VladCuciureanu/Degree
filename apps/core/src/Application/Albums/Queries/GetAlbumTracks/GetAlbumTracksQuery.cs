@@ -1,7 +1,9 @@
 using AudioStreaming.Application.Common.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AudioStreaming.Application.Tracks.Queries.GetAlbumTracks;
 
@@ -28,7 +30,10 @@ public class GetAlbumTracksQueryHandler : IRequestHandler<GetAlbumTracksQuery, L
 
     public async Task<List<TrackDto>> Handle(GetAlbumTracksQuery request, CancellationToken cancellationToken)
     {
-        var album = await _context.Albums.Include(t => t.Tracks).FirstAsync(t => t.Id == request.Id);
-        return _mapper.Map<List<TrackDto>>(album.Tracks);
+        return _context.Tracks
+            .Where(t => t.AlbumId == request.Id)
+            .ProjectTo<TrackDto>(_mapper.ConfigurationProvider)
+            .OrderBy(t => t.Number)
+            .ToList();
     }
 }

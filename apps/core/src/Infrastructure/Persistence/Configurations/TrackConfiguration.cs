@@ -12,6 +12,9 @@ public class TrackConfiguration : IEntityTypeConfiguration<Track>
             .HasMaxLength(128)
             .IsRequired();
 
+        builder.Property(t => t.Number)
+            .IsRequired();
+
         builder.HasOne(t => t.Album).WithMany(a => a.Tracks).HasForeignKey(t => t.AlbumId);
     }
 }

@@ -1,15 +1,23 @@
 "use client";
 import { TrackDto } from "@/types/track";
 import styles from "./index.module.scss";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../../Providers/PlayerProvider";
+import { getTrackArtists } from "@/libs/tracks";
+import { ArtistDto } from "@/types/artist";
+import ArtistLink from "@/features/Artist/Link";
+import PauseIcon from "@/assets/graphics/Pause";
+import PlayIcon from "@/assets/graphics/Play";
 
 type TrackProps = {
   data: TrackDto;
 };
 
 export default function Track(props: TrackProps) {
+  const [artists, setArtists] = useState<ArtistDto[]>([]);
+
   const playerContext = useContext(PlayerContext);
+
   const isPlaying =
     playerContext.track?.id === props.data.id && playerContext.playing;
 
@@ -21,17 +29,32 @@ export default function Track(props: TrackProps) {
     }
   };
 
+  useEffect(() => {
+    getTrackArtists(props.data.id).then((res) => setArtists(res));
+  }, []);
+
   return (
     <article className={styles.Container}>
       <div className={styles.Left}>
+        <p className={styles.Number}>{props.data.number}</p>
         <button id="play-button" onClick={handlePlayButton}>
-          {isPlaying ? <>Pause</> : <>Play</>}
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </button>
-        <p>{props.data.name}</p>
-        <audio
+        <section className={styles.Info}>
+          <h2 className={styles.Name}>{props.data.name}</h2>
+          <div className={styles.ArtistList}>
+            {artists.map((artist, index) => (
+              <>
+                <ArtistLink key={artist.id} data={artist} hideAvatar />
+                {index < artists.length - 1 && <div>{", "}</div>}
+              </>
+            ))}
+          </div>
+        </section>
+        {/* <audio
           controls
           src={`http://localhost:5049/api/tracks/${props.data.id}/content`}
-        />
+        /> */}
       </div>
       <div className={styles.Right}>...</div>
     </article>

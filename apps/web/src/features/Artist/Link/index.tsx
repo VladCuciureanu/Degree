@@ -5,18 +5,21 @@ import styles from "./index.module.scss";
 
 type ArtistLinkProps = {
   data: ArtistDto;
+  hideAvatar?: boolean;
 };
 
 export default function ArtistLink(props: ArtistLinkProps) {
   return (
     <Link href={`/artists/${props.data.id}`} className={styles.Container}>
-      <Image
-        src={props.data.imageUrl ?? "/default_photo.png"}
-        alt={`${props.data.name}'s profile photo.`}
-        height={32}
-        width={32}
-        className={styles.Avatar}
-      />
+      {!props.hideAvatar && (
+        <Image
+          src={props.data.imageUrl ?? "/default_photo.png"}
+          alt={`${props.data.name}'s profile photo.`}
+          height={32}
+          width={32}
+          className={styles.Avatar}
+        />
+      )}
       {props.data.name}
     </Link>
   );
