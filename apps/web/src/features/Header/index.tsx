@@ -7,8 +7,8 @@ export default function Sidebar() {
     <header className={styles.Container}>
       <nav className={styles.NavContainer}>
         <Link href="/">Home</Link>
-        <Link href="/albums">Albums</Link>
         <Link href="/artists">Artists</Link>
+        <Link href="/albums">Albums</Link>
       </nav>
       <UserInfo />
     </header>

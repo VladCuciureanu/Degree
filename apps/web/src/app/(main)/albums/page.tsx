@@ -1,4 +1,4 @@
-import AlbumCard from "@/features/AlbumCard";
+import AlbumCard from "@/features/Album/Card";
 import { getAlbums } from "@/libs/albums";
 import { PaginatedList } from "@/types/common";
 import { AlbumDto } from "@/types/album";

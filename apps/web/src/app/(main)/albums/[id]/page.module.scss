@@ -1,0 +1,26 @@
+.Header {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.Info {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.MetadataRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: -0.125rem;
+}
+
+.Name {
+  font-size: 4.5rem;
+}
+
+.CoverArt {
+  border-radius: 8px;
+}

@@ -1,10 +1,8 @@
 import { ArtistDto } from "@/types/artist";
 import styles from "./page.module.scss";
-import Link from "next/link";
-import Image from "next/image";
 import { PaginatedList } from "@/types/common";
 import { getArtists } from "@/libs/artists";
-import ArtistCard from "@/features/ArtistCard";
+import ArtistCard from "@/features/Artist/Card";
 
 export const revalidate = 0;
 

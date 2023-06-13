@@ -1,0 +1,21 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+
+  font-weight: 600;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: #555;
+  }
+}
+
+.Avatar {
+  height: 1.5rem;
+  width: 1.5rem;
+
+  border-radius: 9999px;
+}

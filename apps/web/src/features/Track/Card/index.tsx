@@ -2,7 +2,7 @@
 import { TrackDto } from "@/types/track";
 import styles from "./index.module.scss";
 import { useContext } from "react";
-import { PlayerContext } from "../Providers/PlayerProvider";
+import { PlayerContext } from "../../Providers/PlayerProvider";
 
 type TrackProps = {
   data: TrackDto;
