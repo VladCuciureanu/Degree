@@ -1,5 +1,5 @@
 "use client";
-import { AuthContext } from "@/components/Shared/Providers/AuthProvider";
+import { AuthContext } from "@/features/Providers/AuthProvider";
 import { FormEvent, useContext, useState } from "react";
 import styles from "../page.module.scss";
 import { useRouter } from "next/navigation";

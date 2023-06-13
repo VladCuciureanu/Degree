@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import styles from "./index.module.scss";
 import { PlayerContext } from "../Providers/PlayerProvider";
 import Image from "next/image";

@@ -3,7 +3,7 @@ import { MouseEvent, useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import parentStyles from "../index.module.scss";
+import linkStyles from "../Link/index.module.scss";
 import styles from "./index.module.scss";
 
 export default function HeaderUserInfo() {
@@ -12,10 +12,10 @@ export default function HeaderUserInfo() {
   if (authContext.user === null)
     return (
       <div className={styles.Container} style={{ gap: "8px" }}>
-        <Link className={parentStyles.Link} href="/login">
+        <Link className={linkStyles.Link} href="/login">
           Login
         </Link>
-        <Link className={parentStyles.Link} href="/register">
+        <Link className={linkStyles.Link} href="/register">
           Register
         </Link>
       </div>
@@ -29,7 +29,7 @@ export default function HeaderUserInfo() {
   return (
     <div className={styles.Container}>
       <p>{authContext.user.username}</p>
-      <button className={parentStyles.Link} onClick={handleLogOut}>
+      <button className={linkStyles.Link} onClick={handleLogOut}>
         Log Out
       </button>
     </div>

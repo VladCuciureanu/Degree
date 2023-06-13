@@ -2,7 +2,7 @@ import { AlbumDto } from "@/types/album";
 import styles from "./page.module.scss";
 import Image from "next/image";
 import { TrackDto } from "@/types/track";
-import Track from "@/components/Shared/Track";
+import Track from "@/features/Track";
 import { getAlbum, getAlbumTracks } from "@/libs/albums";
 
 export const revalidate = 0;
