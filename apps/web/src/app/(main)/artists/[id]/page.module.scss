@@ -1,0 +1,24 @@
+.Header {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.Info {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+}
+
+.Name {
+  font-size: 4.5rem;
+}
+
+.Avatar {
+  border-radius: 9999px;
+}
+
+.Subtitle {
+  margin-bottom: 0.75rem;
+}

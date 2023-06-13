@@ -31,7 +31,7 @@ export default function Track(props: TrackProps) {
 
   useEffect(() => {
     getTrackArtists(props.data.id).then((res) => setArtists(res));
-  }, []);
+  }, [props.data.id]);
 
   return (
     <article className={styles.Container}>

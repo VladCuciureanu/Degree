@@ -7,6 +7,8 @@ using AudioStreaming.Application.Artists.Queries.GetArtistsWithPagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using AudioStreaming.Application.Artists.Queries.GetArtist;
+using AudioStreaming.Application.Albums.Queries;
+using AudioStreaming.Application.Tracks.Queries.GetArtistAlbums;
 
 namespace AudioStreaming.Web.Controllers;
 
@@ -61,5 +63,11 @@ public class ArtistsController : ApiControllerBase
         await Mediator.Send(new DeleteArtistCommand(id));
 
         return NoContent();
+    }
+
+    [HttpGet("{id}/albums")]
+    public async Task<ActionResult<List<AlbumDto>>> GetArtistAlbums(int id)
+    {
+        return await Mediator.Send(new GetArtistAlbumsQuery(id));
     }
 }
