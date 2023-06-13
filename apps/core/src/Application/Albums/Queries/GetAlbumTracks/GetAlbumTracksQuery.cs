@@ -30,10 +30,10 @@ public class GetAlbumTracksQueryHandler : IRequestHandler<GetAlbumTracksQuery, L
 
     public async Task<List<TrackDto>> Handle(GetAlbumTracksQuery request, CancellationToken cancellationToken)
     {
-        return _context.Tracks
+        return await _context.Tracks
             .Where(t => t.AlbumId == request.Id)
             .ProjectTo<TrackDto>(_mapper.ConfigurationProvider)
             .OrderBy(t => t.Number)
-            .ToList();
+            .ToListAsync();
     }
 }
