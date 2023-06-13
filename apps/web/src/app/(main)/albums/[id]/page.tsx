@@ -1,9 +1,9 @@
-import { AlbumDto } from "@/types/album";
-import styles from "./page.module.scss";
-import Image from "next/image";
-import { TrackDto } from "@/types/track";
-import Track from "@/features/Track";
 import { getAlbum, getAlbumTracks } from "@/libs/albums";
+import { AlbumDto } from "@/types/album";
+import { TrackDto } from "@/types/track";
+import TrackCard from "@/features/TrackCard";
+import Image from "next/image";
+import styles from "./page.module.scss";
 
 export const revalidate = 0;
 
@@ -26,7 +26,7 @@ export default async function AlbumDetailsPage(props: AlbumDetailsPageParams) {
       />
       <div>
         {tracksData.map((data) => (
-          <Track key={data.id} data={data} />
+          <TrackCard key={data.id} data={data} />
         ))}
       </div>
     </main>
