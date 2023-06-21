@@ -2,7 +2,7 @@
 import { TrackDto } from "@/types/track";
 import styles from "./index.module.scss";
 import { useContext, useEffect, useState } from "react";
-import { PlayerContext } from "../../Providers/PlayerProvider";
+import { PlayerContext } from "../../Player/Provider";
 import { getTrackArtists } from "@/libs/tracks";
 import { ArtistDto } from "@/types/artist";
 import ArtistLink from "@/features/Artist/Link";

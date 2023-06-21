@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import PlayerProvider from "./PlayerProvider";
+import PlayerProvider from "../Player/Provider";
 import AuthProvider from "./AuthProvider";
 
 type ProvidersProps = {

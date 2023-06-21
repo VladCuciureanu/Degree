@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import styles from "./index.module.scss";
-import { PlayerContext } from "../Providers/PlayerProvider";
+import { PlayerContext } from "./Provider";
 import PauseIcon from "@/assets/graphics/Pause";
 import PlayIcon from "@/assets/graphics/Play";
 import TrackInfo from "./TrackInfo";

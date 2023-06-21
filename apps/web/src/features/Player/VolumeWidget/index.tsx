@@ -1,5 +1,5 @@
 import VolumeOnIcon from "@/assets/graphics/VolumeOn";
-import { PlayerContext } from "@/features/Providers/PlayerProvider";
+import { PlayerContext } from "@/features/Player/Provider";
 import { ChangeEvent, useContext } from "react";
 import styles from "../index.module.scss";
 import VolumeOffIcon from "@/assets/graphics/VolumeOff";
