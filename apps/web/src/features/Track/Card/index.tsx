@@ -1,7 +1,7 @@
 "use client";
 import { TrackDto } from "@/types/track";
 import styles from "./index.module.scss";
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../../Player/Provider";
 import { getTrackArtists } from "@/libs/tracks";
 import { ArtistDto } from "@/types/artist";
@@ -25,7 +25,7 @@ export default function Track(props: TrackProps) {
     if (isPlaying) {
       playerContext.pause();
     } else {
-      playerContext.play(props.data.id);
+      playerContext.play(props.data.id, true);
     }
   };
 
@@ -44,10 +44,10 @@ export default function Track(props: TrackProps) {
           <h2 className={styles.Name}>{props.data.name}</h2>
           <div className={styles.ArtistList}>
             {artists.map((artist, index) => (
-              <>
-                <ArtistLink key={artist.id} data={artist} hideAvatar />
+              <Fragment key={artist.id}>
+                <ArtistLink data={artist} hideAvatar />
                 {index < artists.length - 1 && <div>{", "}</div>}
-              </>
+              </Fragment>
             ))}
           </div>
         </section>

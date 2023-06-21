@@ -82,6 +82,7 @@ export default function Player() {
         ref={audioPlayer as LegacyRef<HTMLAudioElement>}
         onTimeUpdate={onTimeUpdate}
         onLoadedMetadata={onMetadata}
+        onEnded={goForward}
         autoPlay
       />
       <section className={styles.Left}>

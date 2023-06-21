@@ -1,9 +1,9 @@
 "use client";
-import { getAlbum } from "@/libs/albums";
+import { getAlbum, getAlbumTracks } from "@/libs/albums";
 import { getTrack } from "@/libs/tracks";
 import { AlbumDto } from "@/types/album";
 import { TrackDto } from "@/types/track";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, SetStateAction, createContext, useState } from "react";
 
 type PlayerContextValue = {
   playing: boolean;
@@ -15,7 +15,7 @@ type PlayerContextValue = {
   hasPrevious: boolean;
   volume: number;
   muted: boolean;
-  play: (trackId: number) => void;
+  play: (trackId: number, playAlbum?: boolean) => void;
   pause: () => void;
   resume: () => void;
   goToNext: () => void;
@@ -35,11 +35,32 @@ export default function PlayerProvider(props: { children: ReactNode }) {
   const [_volume, _setVolume] = useState(50);
   const [muted, setMuted] = useState(false);
 
-  const play = (trackId: number) => {
-    getTrack(trackId).then((res) => {
-      setTrack(res);
-      getAlbum(res.albumId).then((res) => {
-        setAlbum(res);
+  const play = (trackId: number, playAlbum?: boolean) => {
+    getTrack(trackId).then((tr) => {
+      setTrack(tr);
+      getAlbum(tr.albumId).then(async (al) => {
+        setAlbum(al);
+
+        if (playAlbum) {
+          const newHistory = [...history];
+          var newQueue: SetStateAction<TrackDto[]> = [];
+
+          const tracks = await getAlbumTracks(al.id);
+
+          const trackIndex = tracks.findIndex((t) => t.id === tr.id);
+
+          if (trackIndex > 0) {
+            newHistory.push(...tracks.slice(0, trackIndex));
+          }
+
+          if (trackIndex < tracks.length - 1) {
+            newQueue = tracks.slice(trackIndex + 1);
+          }
+
+          setHistory(newHistory);
+          setQueue(newQueue);
+        }
+
         setPlaying(true);
       });
     });
@@ -75,12 +96,13 @@ export default function PlayerProvider(props: { children: ReactNode }) {
       setQueue([...queue, track]);
     }
 
-    const nextTrack = history.pop()!;
+    var nextTrack = history.pop()!;
+
     play(nextTrack.id);
   };
 
   const hasNext = queue.length > 0;
-  const hasPrevious = queue.length > 0;
+  const hasPrevious = history.length > 0;
 
   const volume = muted ? 0 : _volume;
 
