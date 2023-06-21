@@ -1,0 +1,21 @@
+.CoverArt {
+  height: calc(var(--player-height) - var(--player-gap));
+  width: calc(var(--player-height) - var(--player-gap));
+  border-radius: 8px;
+}
+
+.TextContainer {
+  display: flex;
+  flex-direction: column;
+
+  .SongTitle {
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .ArtistName {
+    color: gray;
+    text-decoration: none;
+  }
+}

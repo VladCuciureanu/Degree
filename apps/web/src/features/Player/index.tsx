@@ -1,14 +1,38 @@
 "use client";
-import { useContext } from "react";
+import {
+  LegacyRef,
+  ReactEventHandler,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styles from "./index.module.scss";
 import { PlayerContext } from "../Providers/PlayerProvider";
-import Image from "next/image";
-import Link from "next/link";
+import PauseIcon from "@/assets/graphics/Pause";
+import PlayIcon from "@/assets/graphics/Play";
+import TrackInfo from "./TrackInfo";
+import VolumeWidget from "./VolumeWidget";
 
 export default function Player() {
   const playerContext = useContext(PlayerContext);
 
-  const handlePlayButton = () => {
+  const audioPlayer = useRef<HTMLAudioElement>();
+  const progressBar = useRef<HTMLInputElement>();
+
+  const [duration, setDuration] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(0);
+
+  useEffect(() => {
+    if (playerContext.playing) {
+      audioPlayer.current?.play();
+    } else {
+      audioPlayer.current?.pause();
+    }
+    audioPlayer.current!.volume = playerContext.volume / 100;
+  }, [playerContext.playing, playerContext.volume]);
+
+  const togglePlayPause = () => {
     if (playerContext.playing) {
       playerContext.pause();
     } else {
@@ -16,41 +40,62 @@ export default function Player() {
     }
   };
 
+  const onMetadata: ReactEventHandler<HTMLAudioElement> = (ev) => {
+    setDuration(
+      Number.isNaN(ev.currentTarget.duration)
+        ? 100
+        : Math.floor(ev.currentTarget.duration)
+    );
+  };
+
+  const onTimeUpdate: ReactEventHandler<HTMLAudioElement> = (ev) => {
+    setProgress(ev.currentTarget.currentTime);
+  };
+
+  const onScrub: ReactEventHandler<HTMLInputElement> = (ev) => {
+    const scrubbedTimestamp = Number(ev.currentTarget.value);
+    console.log(ev.currentTarget.value);
+    setProgress(scrubbedTimestamp);
+    audioPlayer.current!.currentTime = scrubbedTimestamp;
+    audioPlayer.current!.play();
+  };
+
   return (
     <main id="player" className={styles.Container}>
+      <audio
+        src={`${process.env.NEXT_PUBLIC_API_URL}/api/tracks/${playerContext.track?.id}/content`}
+        ref={audioPlayer as LegacyRef<HTMLAudioElement>}
+        onTimeUpdate={onTimeUpdate}
+        onLoadedMetadata={onMetadata}
+        autoPlay
+      />
       <section className={styles.Left}>
-        <Image
-          src={playerContext.album?.imageUrl ?? "/default_photo.png"}
-          alt={"The album's cover art"}
-          className={styles.CoverArt}
-          height={128}
-          width={128}
-          draggable={false}
-          style={
-            playerContext.album
-              ? undefined
-              : { filter: "grayscale(100%)", opacity: 0.35 }
-          }
-        />
-        <aside className={styles.TextContainer}>
-          <p className={styles.SongTitle}>{playerContext.track?.name ?? ""}</p>
-          <Link
-            className={styles.ArtistName}
-            href={`/artists/${playerContext.album?.artist?.id}` ?? undefined}
-          >
-            {playerContext.album?.artist?.name ?? ""}
-          </Link>
-        </aside>
+        <TrackInfo />
       </section>
       <section className={styles.Middle}>
-        <button
-          disabled={playerContext.track === null}
-          onClick={handlePlayButton}
-        >
-          {playerContext.playing ? <>Pause</> : <>Play</>}
-        </button>
+        <section className={styles.Controls}>
+          <button
+            className={styles.PlayButton}
+            disabled={playerContext.track === null}
+            onClick={togglePlayPause}
+          >
+            {playerContext.playing ? <PauseIcon /> : <PlayIcon />}
+          </button>
+        </section>
+        <input
+          type="range"
+          ref={progressBar as LegacyRef<HTMLInputElement>}
+          min={0}
+          className={styles.ProgressBar}
+          max={duration}
+          value={progress}
+          onChange={onScrub}
+          disabled={audioPlayer.current === undefined}
+        />
       </section>
-      <section className={styles.Right}>Right</section>
+      <section className={styles.Right}>
+        <VolumeWidget />
+      </section>
     </main>
   );
 }

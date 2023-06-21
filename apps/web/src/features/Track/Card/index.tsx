@@ -51,10 +51,6 @@ export default function Track(props: TrackProps) {
             ))}
           </div>
         </section>
-        {/* <audio
-          controls
-          src={`http://localhost:5049/api/tracks/${props.data.id}/content`}
-        /> */}
       </div>
       <div className={styles.Right}>...</div>
     </article>

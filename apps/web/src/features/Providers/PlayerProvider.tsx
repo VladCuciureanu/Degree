@@ -13,11 +13,15 @@ type PlayerContextValue = {
   history: TrackDto[];
   hasNext: boolean;
   hasPrevious: boolean;
+  volume: number;
+  muted: boolean;
   play: (trackId: number) => void;
   pause: () => void;
   resume: () => void;
   goToNext: () => void;
   goToPrevious: () => void;
+  setVolume: (value: number) => void;
+  toggleMute: () => void;
 };
 
 export const PlayerContext = createContext<PlayerContextValue>({} as any);
@@ -28,6 +32,8 @@ export default function PlayerProvider(props: { children: ReactNode }) {
   const [album, setAlbum] = useState<AlbumDto | null>(null);
   const [queue, setQueue] = useState<TrackDto[]>([]);
   const [history, setHistory] = useState<TrackDto[]>([]);
+  const [_volume, _setVolume] = useState(50);
+  const [muted, setMuted] = useState(false);
 
   const play = (trackId: number) => {
     getTrack(trackId).then((res) => {
@@ -68,6 +74,17 @@ export default function PlayerProvider(props: { children: ReactNode }) {
   const hasNext = queue.length > 0;
   const hasPrevious = queue.length > 0;
 
+  const volume = muted ? 0 : _volume;
+
+  const setVolume = (value: number) => {
+    _setVolume(value);
+    setMuted(false);
+  };
+
+  const toggleMute = () => {
+    setMuted(!muted);
+  };
+
   return (
     <PlayerContext.Provider
       value={{
@@ -83,6 +100,10 @@ export default function PlayerProvider(props: { children: ReactNode }) {
         resume,
         goToNext,
         goToPrevious,
+        volume,
+        setVolume,
+        muted,
+        toggleMute,
       }}
     >
       {props.children}

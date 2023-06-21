@@ -3,15 +3,14 @@ import { ComponentProps } from "react";
 export default function PlayIcon(props: ComponentProps<"svg">) {
   return (
     <svg
-      version="1.1"
-      id="Layer_1"
-      xmlns="http://www.w3.org/2000/svg"
-      x="0px"
-      y="0px"
+      role="img"
+      height="16"
+      width="16"
+      aria-hidden="true"
       viewBox="0 0 16 16"
       {...props}
     >
-      <polygon points="0,0 0,16 16,8 " />
+      <path d="M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288V1.713z"></path>
     </svg>
   );
 }
