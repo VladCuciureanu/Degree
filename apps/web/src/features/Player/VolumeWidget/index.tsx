@@ -1,5 +1,8 @@
+import VolumeOnIcon from "@/assets/graphics/VolumeOn";
 import { PlayerContext } from "@/features/Providers/PlayerProvider";
 import { ChangeEvent, useContext } from "react";
+import styles from "../index.module.scss";
+import VolumeOffIcon from "@/assets/graphics/VolumeOff";
 
 export default function PlayerVolumeWidget() {
   const playerContext = useContext(PlayerContext);
@@ -10,8 +13,12 @@ export default function PlayerVolumeWidget() {
 
   return (
     <>
-      <button id="toggle-volume" onClick={() => playerContext.toggleMute()}>
-        {playerContext.muted ? "M" : "U"}
+      <button
+        className={styles.IconButton}
+        id="toggle-volume"
+        onClick={() => playerContext.toggleMute()}
+      >
+        {playerContext.muted ? <VolumeOffIcon /> : <VolumeOnIcon />}
       </button>
       <input
         id="volume"

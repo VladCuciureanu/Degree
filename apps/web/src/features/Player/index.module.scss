@@ -32,6 +32,12 @@
 .Middle {
   flex-direction: column;
   justify-content: center;
+
+  & section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 }
 
 .Right {
@@ -48,6 +54,17 @@
   border-radius: 9999px;
 
   background-color: rgb(225 225 225);
+}
+
+.IconButton {
+  background-color: transparent;
+  border: 0;
+
+  fill: rgb(0 0 0 / 0.6);
+
+  &:hover {
+    fill: rgb(0 0 0 / 1);
+  }
 }
 
 .Controls {

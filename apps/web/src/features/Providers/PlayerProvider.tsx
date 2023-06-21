@@ -54,6 +54,10 @@ export default function PlayerProvider(props: { children: ReactNode }) {
   };
 
   const goToNext = () => {
+    if (!hasNext) {
+      return;
+    }
+
     if (track) {
       setHistory([...history, track]);
     }
@@ -63,6 +67,10 @@ export default function PlayerProvider(props: { children: ReactNode }) {
   };
 
   const goToPrevious = () => {
+    if (!hasPrevious) {
+      return;
+    }
+
     if (track) {
       setQueue([...queue, track]);
     }

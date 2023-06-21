@@ -13,6 +13,8 @@ import PauseIcon from "@/assets/graphics/Pause";
 import PlayIcon from "@/assets/graphics/Play";
 import TrackInfo from "./TrackInfo";
 import VolumeWidget from "./VolumeWidget";
+import GoBackIcon from "@/assets/graphics/GoBack";
+import GoForwardIcon from "@/assets/graphics/GoForward";
 
 export default function Player() {
   const playerContext = useContext(PlayerContext);
@@ -54,10 +56,23 @@ export default function Player() {
 
   const onScrub: ReactEventHandler<HTMLInputElement> = (ev) => {
     const scrubbedTimestamp = Number(ev.currentTarget.value);
-    console.log(ev.currentTarget.value);
     setProgress(scrubbedTimestamp);
     audioPlayer.current!.currentTime = scrubbedTimestamp;
-    audioPlayer.current!.play();
+    playerContext.resume();
+  };
+
+  const goBack = () => {
+    playerContext.goToPrevious();
+  };
+
+  const goForward = () => {
+    playerContext.goToNext();
+  };
+
+  const rewind = () => {
+    setProgress(0);
+    audioPlayer.current!.currentTime = 0;
+    playerContext.resume();
   };
 
   return (
@@ -74,13 +89,25 @@ export default function Player() {
       </section>
       <section className={styles.Middle}>
         <section className={styles.Controls}>
-          <button
-            className={styles.PlayButton}
-            disabled={playerContext.track === null}
-            onClick={togglePlayPause}
-          >
-            {playerContext.playing ? <PauseIcon /> : <PlayIcon />}
-          </button>
+          <section id="buttons">
+            <button
+              className={styles.IconButton}
+              onClick={rewind}
+              onDoubleClick={goBack}
+            >
+              <GoBackIcon />
+            </button>
+            <button
+              className={styles.PlayButton}
+              disabled={playerContext.track === null}
+              onClick={togglePlayPause}
+            >
+              {playerContext.playing ? <PauseIcon /> : <PlayIcon />}
+            </button>
+            <button className={styles.IconButton} onClick={goForward}>
+              <GoForwardIcon />
+            </button>
+          </section>
         </section>
         <input
           type="range"
