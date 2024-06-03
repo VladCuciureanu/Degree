@@ -4,8 +4,8 @@
   "private": true,
   "author": {
     "name": "Vlad Cuciureanu",
-    "email": "vlad.cuciureanu@pm.me",
-    "url": "https://vladcuciureanu.com"
+    "email": "vlad@cuciureanu.me",
+    "url": "https://vlad.cuciureanu.me"
   },
   "scripts": {
     "dev": "next dev",
