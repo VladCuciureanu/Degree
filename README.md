@@ -1,9 +1,4 @@
-<div align="center">
-  <div>&nbsp;</div>
-  <img src="assets/degree-logo.png" width="400"/> 
-</div>
-
-## Introduction
+# 🎓 Degree
 
 This project offers insights into the integration of backend and frontend technologies, showcasing an approach to music streaming on the web. Built using .NET Core and React.
 
